@@ -10,7 +10,6 @@ class AlexandraCooksScraper extends BaseScraper {
   scrape($) {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
-    const body = $(".wprm-recipe-container");
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
     $(".tasty-recipes-ingredients")
