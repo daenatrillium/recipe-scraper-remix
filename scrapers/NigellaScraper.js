@@ -15,9 +15,14 @@ class NigellaScraper extends BaseScraper {
       this.recipe.name = $("title").text();
     } 
 
+    console.log("HERE IS RECIPE NAME: ", this.recipe.name);
+
     if (!this.recipe.image) {
       this.recipe.image = $("article").find("img").first().prop("src")
     }
+
+    console.log("HERE IS RECIPE INGREDIENTS: ", ingredients);
+
 
     $("*[itemprop = 'recipeIngredient']").each((i, el) => {
       ingredients.push(
@@ -27,12 +32,17 @@ class NigellaScraper extends BaseScraper {
       );
     });
 
+    console.log("HERE IS RECIPE INGREDIENTS: ", ingredients);
+
+
     $("*[itemprop = 'recipeInstructions']")
     .find("ol")
     .find("li")
     .each((i, el) => {
       instructions.push($(el).text());
     });
+
+    console.log("HERE IS RECIPE INSTRUCTIONS: ", instructions);
 
     let recipeServings = $("*[itemprop = 'recipeYield']").text()
 
