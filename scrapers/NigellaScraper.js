@@ -11,6 +11,13 @@ class NigellaScraper extends BaseScraper {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
+    if (!this.recipe.name) {
+      this.recipe.name = $("title").text();
+    } 
+
+    if (!this.recipe.image) {
+      $("article").find("img").first().prop("src")
+    }
 
     $("*[itemprop = 'recipeIngredient']").each((i, el) => {
       ingredients.push(
@@ -26,8 +33,6 @@ class NigellaScraper extends BaseScraper {
     .each((i, el) => {
       instructions.push($(el).text());
     });
-
-    $(".tasty-recipes-yield-scale").remove();
 
     let recipeServings = $("*[itemprop = 'recipeYield']").text()
 
