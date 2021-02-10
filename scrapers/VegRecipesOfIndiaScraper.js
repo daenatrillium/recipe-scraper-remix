@@ -28,11 +28,7 @@ class VegRecipesOfIndiaScraper extends BaseScraper {
     time.cook = $(".wprm-recipe-cook-time-container").find(".wprm-recipe-time").text();
     time.total = $(".wprm-recipe-total-time-container").find(".wprm-recipe-time").text();
 
-    $(".tasty-recipes-yield-scale").remove();
-
-    this.recipe.servings = $(".wprm-recipe-servings-with-unit")
-    .text()
-    .trim();
+    this.recipe.servings = $(".wprm-recipe-servings-with-unit").find("input").prop("value");
   }
 }
 

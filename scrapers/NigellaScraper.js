@@ -21,7 +21,7 @@ class NigellaScraper extends BaseScraper {
       this.recipe.image = $("article").find("img").first().prop("src")
     }
 
-    console.log("HERE IS RECIPE IMAGE: ", image);
+    console.log("HERE IS RECIPE IMAGE: ", this.recipe.image);
 
 
     $("*[itemprop = 'recipeIngredient']").each((i, el) => {
