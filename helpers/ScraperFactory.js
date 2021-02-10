@@ -4,6 +4,7 @@ const parseDomain = require("parse-domain");
 
 const domains = {
   "101cookbooks": require("../scrapers/101CookbooksScraper"),
+  alexandracooks: require("../scrapers/AlexandraCooksScraper"),
   allrecipes: require("../scrapers/AllRecipesScraper"),
   ambitiouskitchen: require("../scrapers/AmbitiousKitchenScraper"),
   averiecooks: require("../scrapers/AverieCooksScraper"),
