@@ -11,12 +11,12 @@ class NigellaScraper extends BaseScraper {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
-    if (!this.recipe.name) {
+    if (this.recipe.name === "") {
       this.recipe.name = $("title").text();
     } 
 
     if (!this.recipe.image) {
-      $("article").find("img").first().prop("src")
+      this.recipe.image = $("article").find("img").first().prop("src")
     }
 
     $("*[itemprop = 'recipeIngredient']").each((i, el) => {
