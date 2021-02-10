@@ -19,7 +19,7 @@ class NigellaScraper extends BaseScraper {
 
     if (!this.recipe.image) {
       console.log("undefined recipe image")
-      this.recipe.image = $("article").find("img").first().attr("src")
+      this.recipe.image = $(".recipe-image").find("img").first().attr("src")
     }
 
     console.log("HERE IS RECIPE IMAGE: ", this.recipe.image);
