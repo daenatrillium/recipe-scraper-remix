@@ -102,7 +102,7 @@ class DefaultDomainScraper extends BaseScraper {
           .text()
           
           if (recipeTime) {
-              recipeTime.toLowerCase();
+              label.toLowerCase();
               if (label.includes("prep")) {
               time.prep = recipeTime;
               } else if (label.includes("cook")) {
@@ -186,7 +186,7 @@ class DefaultDomainScraper extends BaseScraper {
   }
 
   if (ingredients.length === 0) {
-    ingredients = ["No Ingredients Found"]
+    ingredients.push("No ingredients found")
     this.recipe.defaultFlag = true;
   }
 
