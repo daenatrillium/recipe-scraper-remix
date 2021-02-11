@@ -34,6 +34,19 @@ class AlexandraCooksScraper extends BaseScraper {
     this.recipe.servings = $(".tasty-recipes-yield")
     .text()
     .trim();
+
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
+    }
   }
 }
 

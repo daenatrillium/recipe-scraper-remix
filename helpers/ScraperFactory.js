@@ -54,6 +54,8 @@ const domains = {
   yummly: require("../scrapers/YummlyScraper")
 };
 
+const defaultDomain = require("../scrapers/DefaultDomainScraper") 
+
 /**
  * A Factory that supplies an instance of a scraper based on a given URL
  */
@@ -65,7 +67,7 @@ class ScraperFactory {
       if (domains[domain] !== undefined) {
         return new domains[domain](url);
       } else {
-        throw new Error("Site not yet supported");
+        return new defaultDomain(url); 
       }
     } else {
       throw new Error("Failed to parse domain");

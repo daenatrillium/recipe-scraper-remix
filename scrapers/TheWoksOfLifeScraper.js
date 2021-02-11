@@ -35,6 +35,19 @@ class TheWoksOfLifeScraper extends BaseScraper {
     time.total = totalTime.concat(" ").concat(totalMin)
 
     this.recipe.servings = $(".wprm-recipe-servings").text()
+
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
+    }
   }
 }
 

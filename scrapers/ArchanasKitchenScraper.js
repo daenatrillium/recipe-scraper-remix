@@ -45,6 +45,19 @@ class ArchanasKitchenScraper extends BaseScraper {
     if (recipeServings) {
       this.recipe.servings = recipeServings.toLowerCase().replace(":","").replace("makes","").trim()
     }
+
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
+    }
   }
 }
 

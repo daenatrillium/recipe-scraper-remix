@@ -15,14 +15,11 @@ class NigellaScraper extends BaseScraper {
       this.recipe.name = $("title").text();
     } 
 
-    console.log("HERE IS RECIPE NAME: ", this.recipe.name);
 
     if (!this.recipe.image) {
       console.log("undefined recipe image")
       this.recipe.image = $(".recipe-image").find("img").first().attr("src")
     }
-
-    console.log("HERE IS RECIPE IMAGE: ", this.recipe.image);
 
 
     $("*[itemprop = 'recipeIngredient']").each((i, el) => {
@@ -33,7 +30,6 @@ class NigellaScraper extends BaseScraper {
       );
     });
 
-    console.log("HERE IS RECIPE INGREDIENTS: ", ingredients);
 
 
     $("*[itemprop = 'recipeInstructions']")
@@ -43,12 +39,23 @@ class NigellaScraper extends BaseScraper {
       instructions.push($(el).text());
     });
 
-    console.log("HERE IS RECIPE INSTRUCTIONS: ", instructions);
 
     let recipeServings = $("*[itemprop = 'recipeYield']").text()
 
     if (recipeServings) {
       this.recipe.servings = recipeServings.toLowerCase().replace(":","").replace("makes","").trim()
+    }
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
     }
   }
 }

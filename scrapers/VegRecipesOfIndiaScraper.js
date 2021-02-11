@@ -34,7 +34,20 @@ class VegRecipesOfIndiaScraper extends BaseScraper {
       Recipe.servings = $(".wprm-recipe-servings-with-unit")
       .text()
       .trim();
-  }
+    }
+
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
+    }
   }
 }
 

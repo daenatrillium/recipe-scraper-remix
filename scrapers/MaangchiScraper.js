@@ -29,6 +29,18 @@ class MaangchiScraper extends BaseScraper {
         })
       }
     })
+
+    if (!this.recipe.image) {
+      this.recipe.image = ""  
+    }
+
+    if (!this.recipe.servings) {
+      this.recipe.servings = ""  
+    }
+
+    if (!this.recipe.instructions) {
+      this.recipe.instructions = [] 
+    }
   }
 }
 
