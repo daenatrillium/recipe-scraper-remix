@@ -8,7 +8,7 @@ class DefaultDomainScraper extends BaseScraper {
   }
 
   scrape($) {
-      console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
+    console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
@@ -85,10 +85,9 @@ class DefaultDomainScraper extends BaseScraper {
       });
 
       $(".wprm-recipe-time-container").each((i, el) => {
-          let label = ""
-          label = $(el)
+          let label = $(el)
           .children(".wprm-recipe-time-label")
-          .text();
+          .text().toLowerCase();
 
           if (!label) {
               console.log("FOUND A BLANK LABEL, CHECKING NEW LABEL")
@@ -97,12 +96,12 @@ class DefaultDomainScraper extends BaseScraper {
               .text();
               console.log("HERE IS LABEL: ", label)
           }
+
           let recipeTime = $(el)
           .children(".wprm-recipe-time")
           .text()
           
           if (recipeTime) {
-              label.toLowerCase();
               if (label.includes("prep")) {
               time.prep = recipeTime;
               } else if (label.includes("cook")) {
