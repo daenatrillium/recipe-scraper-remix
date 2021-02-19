@@ -27,9 +27,15 @@ class SaveurScraper extends BaseScraper {
 
     this.recipe.servings = $(".yield").text().trim().replace("Yield:", "").replace("serves","");
 
+    if (!this.recipe.name) {
+      this.recipe.name = $("meta[property='twitter:title']").attr("content");
+    }
+    if (!this.recipe.image) {
+      this.recipe.image = $("meta[property='twitter:image']").attr("content"); 
+    }
 
     if (!this.recipe.image) {
-      this.recipe.image = ""  
+      this.recipe.image = ""
     }
 
     if (!this.recipe.servings) {
