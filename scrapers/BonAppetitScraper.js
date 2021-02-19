@@ -8,7 +8,7 @@ const BaseScraper = require("../helpers/BaseScraper");
  */
 class BonAppetitScraper extends BaseScraper {
   constructor(url) {
-    super(url, "bonappetit.com/recipe/");
+    super(url, "bonappetit.com");
   }
 
   scrape($) {
