@@ -59,8 +59,11 @@ class BaseScraper {
     try {
       const res = await fetch(this.url);
       const html = await res.text();
-      return cheerio.load(html);
+      const load = cheerio.load(html);
+      console.log("here is cheerio.load ", load);
+      return load;
     } catch (err) {
+      console.log("here is cheerio.load error ", err);
       this.cheerioCatchError();
     }
   }
