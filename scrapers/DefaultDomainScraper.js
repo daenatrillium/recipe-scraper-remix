@@ -53,6 +53,7 @@ class DefaultDomainScraper extends BaseScraper {
       .trim();
   }
 
+  // chjeck if it is a wprm recipe
   else if ($('.wprm-recipe').length > 0) {
       if (!this.recipe.name) {
           this.recipe.name = $(".wprm-recipe-name").text();
@@ -127,9 +128,10 @@ class DefaultDomainScraper extends BaseScraper {
       }
   }
 
+  // check if it is mv
   else if ($('.mv-create-ingredients').length > 0) {
 
-      if (this.recipe.name) {
+      if (!this.recipe.name) {
           this.recipe.name = $(".mv-create-title").text();
       }
 
@@ -174,6 +176,44 @@ class DefaultDomainScraper extends BaseScraper {
       this.recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()
 
   }
+
+// check if it is ERS
+else if ($('.ERSIngredients').length > 0) {
+
+    if (!this.recipe.name) {
+        this.recipe.name = $(".ERSName").text();
+    }
+
+    $(".ERSIngredients").find(".ingredient")
+    .each((i, el) => {
+            var text = 
+            $(el)
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim()
+                
+                ingredients.push(text);
+        });
+
+    $(".ERSInstructions").find(".instruction")
+    .each((i, el) => {
+            var text = 
+            $(el)
+                .text()
+                .replace(/\s\s+/g, " ")
+                .trim()
+
+                instructions.push(text);
+        });
+
+    time.prep = $("*[itemprop = 'prepTime']").text()? $("*[itemprop = 'prepTime']").text() : ""
+
+    time.active = $("*[itemprop = 'cookTime']").text() ? $("*[itemprop = 'cookTime']").text() : ""
+    
+    time.total = $("*[itemprop = 'totalTime']").text() ? $("*[itemprop = 'totalTime']").text() : ""
+
+    this.recipe.servings = $("*[itemprop = 'recipeYield']").text() ? $("*[itemprop = 'recipeYield']").text() : ""
+}
 
   if (!this.recipe.image) {
     this.recipe.image = ""  
