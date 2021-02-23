@@ -36,6 +36,10 @@ class BaseScraper {
     throw new Error("No recipe found on page");
   }
 
+  cheerioCatchError() {
+    throw new Error("Cheerio Catch Error");
+  }
+
   /**
    * @param {object} $ - a cheerio object representing a DOM
    * @returns {string|null} - if found, an image url
@@ -57,7 +61,7 @@ class BaseScraper {
       const html = await res.text();
       return cheerio.load(html);
     } catch (err) {
-      this.defaultError();
+      this.cheerioCatchError();
     }
   }
 
