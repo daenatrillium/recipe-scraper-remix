@@ -58,7 +58,7 @@ class DefaultDomainScraper extends BaseScraper {
           this.recipe.name = $(".wprm-recipe-name").text();
       }
 
-      let re = /[^ \w]/g
+      let re = /[^ -\w]/g
 
       $(".wprm-recipe-ingredient-group").each((i, el) => {
           $(el)
