@@ -8,9 +8,9 @@ class TasteCookingScraper extends BaseScraper {
   }
 
   scrape($) {
+    this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
-    this.recipe.image = $("meta[name='twitter:image']").attr("content");
 
 
     $(".recipe-body-ingredient").each((i, el) => {
@@ -36,7 +36,11 @@ class TasteCookingScraper extends BaseScraper {
     })
 
     if (!this.recipe.image) {
-      this.recipe.image = ""  
+      this.recipe.image = $("meta[name='twitter:image']").attr("content");
+    }
+
+    if (!this.recipe.image) {
+      this.recipe.image = "";
     }
 
     if (!this.recipe.servings) {
