@@ -17,7 +17,7 @@ class SeriousEatsScraper extends BaseScraper {
   scrape($) {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $(".recipe-title")
+    this.recipe.name = $(".heading__title")
       .text()
       .replace(/\s\s+/g, "");
 
@@ -25,24 +25,15 @@ class SeriousEatsScraper extends BaseScraper {
       ingredients.push($(el).text());
     });
 
-    $(".recipe-about")
-      .children("li")
-      .each((i, el) => {
-        const label = $(el)
-          .children(".label")
-          .text();
-        const info = $(el)
-          .children(".info")
-          .text();
+    time.active = $("#active-time_1-0")
+      .children("meta-text__data").text()
+    
+    time.total = $(".project-meta__total-time")
+      .children("#meta-text_1-0").children("meta-text__data").text()
 
-        if (label.includes("Active")) {
-          time.active = info;
-        } else if (label.includes("Total")) {
-          time.total = info;
-        } else if (label.includes("Yield")) {
-          this.recipe.servings = info;
-        }
-      });
+    this.recipe.servings = $(".project-meta__recipe-serving")
+      .children("#meta-text_6-0").children("meta-text__data").text()
+
 
     let tagsSet = new Set();
     $("li[class='label label-category top-level']").each((i, el) => {
