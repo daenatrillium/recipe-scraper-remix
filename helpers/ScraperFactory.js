@@ -36,7 +36,7 @@ const domains = {
   pinchofyum: require("../scrapers/PinchOfYumScraper"),
   recipetineats: require("../scrapers/RecipeTinEatsScraper"),
   saveur: require("../scrapers/SaveurScraper"),
-  sbs: require("../scrapers/SBSScraper"),
+  sbs: require("../scrapers/SBSAUScraper"),
   seriouseats: require("../scrapers/SeriousEatsScraper"),
   simplyrecipes: require("../scrapers/SimplyRecipesScraper"),
   smittenkitchen: require("../scrapers/SmittenKitchenScraper"),

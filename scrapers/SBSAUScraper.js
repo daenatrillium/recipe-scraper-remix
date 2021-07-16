@@ -2,7 +2,7 @@
 
 const BaseScraper = require("../helpers/BaseScraper");
 
-class SBSScraper extends BaseScraper {
+class SBSAUScraper extends BaseScraper {
   constructor(url) {
     super(url, "sbs.com");
   }
@@ -43,4 +43,4 @@ class SBSScraper extends BaseScraper {
   }
 }
 
-module.exports = SBSScraper;
+module.exports = SBSAUScraper;
