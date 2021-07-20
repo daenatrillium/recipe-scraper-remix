@@ -226,8 +226,26 @@ else if ($('.ERSIngredients').length > 0) {
   }
 
   if (ingredients.length === 0) {
-    ingredients.push("No ingredients found")
-    this.recipe.defaultFlag = true;
+    $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+        ingredients.push($(el).text());
+    });
+
+    if (ingredients.length === 0) {
+        $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+            ingredients.push($(el).text());
+        });
+
+        // if (ingredients.length === 0) {
+        //     // search for header that is ingredients
+        //     $(":header, :contains('ngredient')").next().prop("nodeName");
+
+            if (ingredients.length === 0) {
+                ingredients.push("No ingredients found")
+                this.recipe.defaultFlag = true;
+            }
+        // }
+    }
+
   }
 
   console.log("here is resulting default domain scraper: ", this.recipe)
