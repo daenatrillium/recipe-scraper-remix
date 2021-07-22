@@ -13,18 +13,13 @@ class TheSpruceEatsScraper extends BaseScraper {
 
   scrape($) {
     this.defaultSetImage($);
+    this.defaultSetDescription($);
     const { ingredients, instructions, tags, time } = this.recipe;
     this.recipe.name = $(".heading__title").text();
 
-    $(".simple-list__item").each((i, el) => {
+    $("li.structured-ingredients__list-item").each((i, el) => {
       ingredients.push(this.textTrim($(el)));
     });
-
-   if (ingredients.length === 0) {
-    $(".structured-ingredients__list-item").each((i, el) => {
-      ingredients.push(this.textTrim($(el)));
-    });
-   }
 
     $(".section--instructions")
       .find("li")

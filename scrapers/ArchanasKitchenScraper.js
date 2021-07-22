@@ -22,7 +22,7 @@ class ArchanasKitchenScraper extends BaseScraper {
 
     $("*[itemprop = 'recipeInstructions']")
     .each((i, el) => {
-      instructions.push($(el).text());
+      instructions.push($(el).text().trim());
     });
 
 
