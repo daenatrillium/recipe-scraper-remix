@@ -32,8 +32,8 @@ class BaseScraper {
     this.recipe = new Recipe();
   }
 
-  defaultError() {
-    throw new Error("No recipe found on page");
+  defaultError(rec) {
+    throw new Error("No recipe found on page", rec);
   }
 
   cheerioCatchError() {
@@ -100,7 +100,7 @@ class BaseScraper {
   validateRecipe() {
     let res = validate(this.recipe, recipeSchema);
     if (!res.valid) {
-      this.defaultError();
+      this.defaultError(this.recipe);
     }
     return this.recipe;
   }
