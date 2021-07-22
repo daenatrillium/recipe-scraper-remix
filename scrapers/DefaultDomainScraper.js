@@ -235,15 +235,19 @@ else if ($('.ERSIngredients').length > 0) {
             ingredients.push($(el).text());
         });
 
-        // if (ingredients.length === 0) {
-        //     // search for header that is ingredients
-        //     $(":header, :contains('ngredient')").next().prop("nodeName");
+        if (ingredients.length === 0) {
+            // search for header that is ingredients
+            var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
+            console.log("DOM TYPE: ", domType)
+            $(":header, :contains('ngredient')").nextAll().each((i, el) => {
+                ingredients.push($(el).text());
+            });
 
             if (ingredients.length === 0) {
                 ingredients.push("No ingredients found")
                 this.recipe.defaultFlag = true;
             }
-        // }
+        }
     }
 
   }

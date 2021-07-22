@@ -25,9 +25,9 @@ class FoodRepublicScraper extends BaseScraper {
     
     
 
-    time.prep = $(".prep-time").text().toString().replace("Prep Time: ","");
-    time.cook = $(".cook-time").text().toString().replace("Cook Time: ","");
-    this.recipe.servings = $(".servings").text().toString().replace("Serving Size: ","");
+    time.prep = $(".prep-time").text().replace("Prep Time: ","");
+    time.cook = $(".cook-time").text().replace("Cook Time: ","");
+    this.recipe.servings = $(".servings").text().replace("Serving Size: ","");
 
  
     if (!this.recipe.image) {
