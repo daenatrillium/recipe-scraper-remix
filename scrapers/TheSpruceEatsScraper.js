@@ -20,6 +20,12 @@ class TheSpruceEatsScraper extends BaseScraper {
       ingredients.push(this.textTrim($(el)));
     });
 
+   if (ingredients.length === 0) {
+    $(".structured-ingredients__list-item").each((i, el) => {
+      ingredients.push(this.textTrim($(el)));
+    });
+   }
+
     $(".section--instructions")
       .find("li")
       .find("p.comp")
