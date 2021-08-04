@@ -14,7 +14,7 @@ class DefaultDomainScraper extends BaseScraper {
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
-    const scriptRaw = $("script[type='application/ld+json']")[0].children[0].data;
+    const scriptRaw = $("script[type='application/ld+json']").get()[0].children[0].data;
 
     const scriptData = JSON.parse(scriptRaw)
     const ingr = scriptData.recipeIngredient;
