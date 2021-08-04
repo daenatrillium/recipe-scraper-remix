@@ -15,9 +15,11 @@ class DefaultDomainScraper extends BaseScraper {
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
     $("script[type='application/ld+json']").each((i, el) => {
-        el.recipeIngredient.forEach(e => {
-            ingredients.push(e);
-        });
+        // el.recipeIngredient.forEach(e => {
+        //     ingredients.push(e);
+        // });
+        instructions.push(el);
+        ingredients.push("garlic");
       });
  
 
