@@ -14,10 +14,17 @@ class DefaultDomainScraper extends BaseScraper {
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
-    const scriptText = $("script[type='application/ld+json']").text(); 
-    instructions.push(scriptText);
-    const ingr = scriptText.recipeIngredient;
-    console.log("HERE IS DATA:  ", data); 
+    const scriptText = $("script[type='application/ld+json']").html();
+    const scriptData = JSON.parse(scriptText)
+    const ingr = scriptData.recipeIngredient;
+
+    ingr.forEach(e => {
+        ingredients.push(e);
+    })
+
+    // instructions.push(scriptText);
+    // const ingr = scriptText.recipeIngredient;
+    // console.log("HERE IS DATA:  ", data); 
     // ingr.forEach(e => {
     //     ingredients.push(e);
     // })
