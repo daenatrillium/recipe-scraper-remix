@@ -9,17 +9,27 @@ class DefaultDomainScraper extends BaseScraper {
 
   scrape($) {
     console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
+
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
+    $("script[type='application/ld+json']").each((i, el) => {
+        ingredients = el.recipeIngredient;
+      });
+ 
+
+   
+
      // check if it is a tasty recipes plug in, and follow structure if yes.
      if ($('.tasty-recipes').length > 0) {
-      $(".tasty-recipes-ingredients")
-      .find("li")
-      .each((i, el) => {
-        ingredients.push($(el).text());
-      });
+        if (ingredients.length === 0) { 
+            $(".tasty-recipes-ingredients")
+            .find("li")
+            .each((i, el) => {
+                ingredients.push($(el).text());
+            });
+        }
 
       if (ingredients.length == 0) {
           $(".tasty-recipe-ingredients")
@@ -53,14 +63,15 @@ class DefaultDomainScraper extends BaseScraper {
       .trim();
   }
 
-  // chjeck if it is a wprm recipe
+  // check if it is a wprm recipe
   else if ($('.wprm-recipe').length > 0) {
       if (!this.recipe.name) {
           this.recipe.name = $(".wprm-recipe-name").text();
       }
 
 
-      $(".wprm-recipe-ingredient-group").each((i, el) => {
+      if (ingredients.length === 0) { 
+          $(".wprm-recipe-ingredient-group").each((i, el) => {
           $(el)
           .find(".wprm-recipe-ingredient")
           .each((i, el) => {
@@ -72,6 +83,7 @@ class DefaultDomainScraper extends BaseScraper {
               );
           });
       });
+    }
 
       $(".wprm-recipe-instruction-group").each((i, el) => {
           instructions.push(
@@ -133,18 +145,20 @@ class DefaultDomainScraper extends BaseScraper {
           this.recipe.name = $(".mv-create-title").text();
       }
 
-      $(".mv-create-ingredients").find("li")
-      .each((i, el) => {
-              var text = 
-              $(el)
-                  .text()
-                  .replace(/\s\s+/g, " ")
-                  .trim()
-              if (text && text.toLowerCase() !== "ingredients") {
-                  console.log("PUSHING THIS TEXT FOR INGREDIENTS: ", text)
-                  ingredients.push(text);
-              }
-          });
+      if (ingredients.length === 0) { 
+          $(".mv-create-ingredients").find("li")
+            .each((i, el) => {
+                var text = 
+                $(el)
+                    .text()
+                    .replace(/\s\s+/g, " ")
+                    .trim()
+                if (text && text.toLowerCase() !== "ingredients") {
+                    console.log("PUSHING THIS TEXT FOR INGREDIENTS: ", text)
+                    ingredients.push(text);
+                }
+            });
+        }
 
       $(".mv-create-instructions").find("li")
       .each((i, el) => {
@@ -182,16 +196,18 @@ else if ($('.ERSIngredients').length > 0) {
         this.recipe.name = $(".ERSName").text();
     }
 
-    $(".ERSIngredients").find(".ingredient")
-    .each((i, el) => {
-            var text = 
-            $(el)
-                .text()
-                .replace(/\s\s+/g, " ")
-                .trim()
-                
-                ingredients.push(text);
-        });
+    if (ingredients.length === 0) { 
+        $(".ERSIngredients").find(".ingredient")
+        .each((i, el) => {
+                var text = 
+                $(el)
+                    .text()
+                    .replace(/\s\s+/g, " ")
+                    .trim()
+                    
+                    ingredients.push(text);
+            });
+        }
 
     $(".ERSInstructions").find(".instruction")
     .each((i, el) => {
