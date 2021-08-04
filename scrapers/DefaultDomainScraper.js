@@ -20,10 +20,12 @@ class DefaultDomainScraper extends BaseScraper {
         for(var j in obj[i].children){
             var data = obj[i].children[j].data;
             if(data){
+                instructions.push(data);
                 const ingr = data.recipeIngredient;
-                ingr.forEach(e => {
-                    ingredients.push(e);
-                })
+                ingredients.push("garlic");
+                // ingr.forEach(e => {
+                //     ingredients.push(e);
+                // })
             }
         }
     }
