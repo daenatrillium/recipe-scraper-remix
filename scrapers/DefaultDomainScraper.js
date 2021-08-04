@@ -14,16 +14,14 @@ class DefaultDomainScraper extends BaseScraper {
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
-    $("script[type='application/ld+json']").each((i, el) => {
-        // el.recipeIngredient.forEach(e => {
-        //     ingredients.push(e);
-        // });
-        instructions.push(el);
-        ingredients.push("garlic");
-      });
- 
+    const scriptRaw = $("script[type='application/ld+json']")[0].children[0].data;
 
-   
+    const scriptData = JSON.parse(scriptRaw)
+    const ingr = scriptData.recipeIngredient;
+
+    ingr.forEach(e => {
+        ingredients.push(e);
+    })
 
      // check if it is a tasty recipes plug in, and follow structure if yes.
      if ($('.tasty-recipes').length > 0) {
