@@ -15,19 +15,21 @@ class DefaultDomainScraper extends BaseScraper {
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
     const scriptText = $("script[type='application/ld+json']").first().html();
-    const scriptData = JSON.parse(scriptText)
-    const ingr = scriptData.recipeIngredient;
-
-    ingr.forEach(e => {
-        ingredients.push(e);
-    })
-
-    instructions.push(scriptText);
-    // const ingr = scriptText.recipeIngredient;
-    // console.log("HERE IS DATA:  ", data); 
-    // ingr.forEach(e => {
-    //     ingredients.push(e);
-    // })
+    if (scriptText) {
+        try {
+            const scriptData = JSON.parse(scriptText);
+            if (scriptData) {
+                const ingr = scriptData.recipeIngredient;
+                if (ingr) {
+                    ingr.forEach(e => {
+                        ingredients.push(e);
+                    })
+                }
+            }
+        } catch (error) {
+            console.log("NOT a JSON string!!")
+        }
+    }
     // for(var i in obj){
     //     for(var j in obj[i].children){
     //         var data = obj[i].children[j].data;
@@ -44,12 +46,6 @@ class DefaultDomainScraper extends BaseScraper {
 
     // const scriptRaw = $("script[type='application/ld+json']").get()[0].children[0].data;
 
-    // const scriptData = JSON.parse(scriptRaw)
-    // const ingr = scriptData.recipeIngredient;
-
-    // ingr.forEach(e => {
-    //     ingredients.push(e);
-    // })
 
      // check if it is a tasty recipes plug in, and follow structure if yes.
      if ($('.tasty-recipes').length > 0) {

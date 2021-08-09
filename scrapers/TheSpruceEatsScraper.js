@@ -17,7 +17,7 @@ class TheSpruceEatsScraper extends BaseScraper {
     const { ingredients, instructions, tags, time } = this.recipe;
     this.recipe.name = $(".heading__title").text();
 
-    $("li.structured-ingredients__list-item").each((i, el) => {
+    $("structured-ingredients__list-item").each((i, el) => {
       ingredients.push(this.textTrim($(el)));
     });
 
