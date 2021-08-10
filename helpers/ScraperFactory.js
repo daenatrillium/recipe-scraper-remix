@@ -48,6 +48,7 @@ const domains = {
   thepioneerwoman: require("../scrapers/ThePioneerWomanScraper"),
   therecipecritic: require("../scrapers/TheRecipeCriticScraper"),
   therealfoodrds: require("../scrapers/TheRealFoodDrsScraper"),
+  thespruceeats: require("../scrapers/TheSpruceEatsScraper"),
   thewoksoflife: require("../scrapers/TheWoksOfLifeScraper"),
   vegrecipesofindia: require("../scrapers/VegRecipesOfIndiaScraper"),
   whatsgabycooking: require("../scrapers/WhatsGabyCookingScraper"),
