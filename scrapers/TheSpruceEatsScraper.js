@@ -18,14 +18,14 @@ class TheSpruceEatsScraper extends BaseScraper {
     this.recipe.name = $(".heading__title").text();
 
     $("li.structured-ingredients__list-item").each((i, el) => {
-      ingredients.push(this.textTrim($(el)));
+      ingredients.push($(el).text());
     });
 
     $(".section--instructions")
       .find("li")
       .find("p.comp")
       .each((i, el) => {
-        instructions.push(this.textTrim($(el)));
+        instructions.push($(el).text());
       });
 
     $(".recipe-search-suggestions__chip").each((i, el) => {
