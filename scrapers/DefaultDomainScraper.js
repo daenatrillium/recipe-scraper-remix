@@ -14,22 +14,6 @@ class DefaultDomainScraper extends BaseScraper {
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
 
-    const scriptText = $("script[type='application/ld+json']").first().html();
-    if (scriptText) {
-        try {
-            const scriptData = JSON.parse(scriptText);
-            if (scriptData) {
-                const ingr = scriptData.recipeIngredient;
-                if (ingr) {
-                    ingr.forEach(e => {
-                        ingredients.push(e);
-                    })
-                }
-            }
-        } catch (error) {
-            console.log("NOT a JSON string!!")
-        }
-    }
     // for(var i in obj){
     //     for(var j in obj[i].children){
     //         var data = obj[i].children[j].data;
@@ -49,13 +33,11 @@ class DefaultDomainScraper extends BaseScraper {
 
      // check if it is a tasty recipes plug in, and follow structure if yes.
      if ($('.tasty-recipes').length > 0) {
-        if (ingredients.length === 0) { 
             $(".tasty-recipes-ingredients")
             .find("li")
             .each((i, el) => {
                 ingredients.push($(el).text());
             });
-        }
 
       if (ingredients.length == 0) {
           $(".tasty-recipe-ingredients")
@@ -96,7 +78,6 @@ class DefaultDomainScraper extends BaseScraper {
       }
 
 
-      if (ingredients.length === 0) { 
           $(".wprm-recipe-ingredient-group").each((i, el) => {
           $(el)
           .find(".wprm-recipe-ingredient")
@@ -109,7 +90,7 @@ class DefaultDomainScraper extends BaseScraper {
               );
           });
       });
-    }
+
 
       $(".wprm-recipe-instruction-group").each((i, el) => {
           instructions.push(
@@ -171,7 +152,6 @@ class DefaultDomainScraper extends BaseScraper {
           this.recipe.name = $(".mv-create-title").text();
       }
 
-      if (ingredients.length === 0) { 
           $(".mv-create-ingredients").find("li")
             .each((i, el) => {
                 var text = 
@@ -184,7 +164,7 @@ class DefaultDomainScraper extends BaseScraper {
                     ingredients.push(text);
                 }
             });
-        }
+        
 
       $(".mv-create-instructions").find("li")
       .each((i, el) => {
@@ -267,7 +247,7 @@ else if ($('.ERSIngredients').length > 0) {
     this.recipe.instructions = [] 
   }
 
-  if (ingredients.length === 0) {
+  if(ingredients.length===0) {
     $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
         ingredients.push($(el).text());
     });
@@ -278,6 +258,23 @@ else if ($('.ERSIngredients').length > 0) {
         });
 
         if (ingredients.length === 0) {
+
+            const scriptText = $("script[type='application/ld+json']").html();
+            if (scriptText) {
+                try {
+                    const scriptData = JSON.parse(scriptText);
+                    if (scriptData) {
+                        const ingr = scriptData.recipeIngredient;
+                        if (ingr) {
+                            ingr.forEach(e => {
+                                ingredients.push(e);
+                            })
+                        }
+                    }
+                } catch (error) {
+                    console.log("NOT a JSON string!!")
+                }
+            }
             // search for header that is ingredients
             // var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
             // console.log("DOM TYPE: ", domType)
@@ -291,8 +288,9 @@ else if ($('.ERSIngredients').length > 0) {
             }
         }
     }
+}
 
-  }
+
 
   console.log("here is resulting default domain scraper: ", this.recipe)
   }
