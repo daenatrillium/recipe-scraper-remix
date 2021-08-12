@@ -13,7 +13,7 @@ class DefaultDomainScraper extends BaseScraper {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     var headName = $("meta[property='og:title']").attr("content");
-    if(headName) { this.recipe.name = headname; }
+    if( headName) { this.recipe.name = headName; }
 
     // for(var i in obj){
     //     for(var j in obj[i].children){
