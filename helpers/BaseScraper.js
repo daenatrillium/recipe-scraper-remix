@@ -98,8 +98,12 @@ class BaseScraper {
    * @returns {object} - an object representing the recipe
    */
   validateRecipe() {
-    let res = validate(this.recipe, recipeSchema);
-    if (!res.valid) {
+    // let res = validate(this.recipe, recipeSchema);
+    // if (!res.valid) {
+    //   this.defaultError(this.recipe);
+    // }
+
+    if (!this.recipe.name) {
       this.defaultError(this.recipe);
     }
     return this.recipe;
