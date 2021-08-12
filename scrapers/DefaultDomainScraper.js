@@ -13,7 +13,8 @@ class DefaultDomainScraper extends BaseScraper {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     var headName = $("meta[property='og:title']").attr("content");
-    if( headName) { this.recipe.name = headName; }
+    console.log("HERE IS HEADNAME LENGTH: ", headName.length, headName)
+    if( headName) { this.recipe.name = headName; }``
 
     // for(var i in obj){
     //     for(var j in obj[i].children){
@@ -67,7 +68,8 @@ class DefaultDomainScraper extends BaseScraper {
   // check if it is a wprm recipe
 
   else if ($('.wprm-recipe').length > 0 || $( "[class*='wprm-']" ).length > 0 || $('.wprm-recipe-name').length > 0) {
-      if (!this.recipe.name) {
+    console.log("HIT WPRM RECIPE SCRAPER");
+    if (!this.recipe.name) {
           this.recipe.name = $(".wprm-recipe-name").text();
       }
 
@@ -252,7 +254,7 @@ else if ($('.ERSIngredients').length > 0) {
         });
 
         if (ingredients.length === 0) {
-
+            console.log("HIT LD+JSON SCRAPER");
             const scriptText = $("script[type='application/ld+json']").html();
             if (scriptText) {
                 try {
