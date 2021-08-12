@@ -65,7 +65,8 @@ class DefaultDomainScraper extends BaseScraper {
   }
 
   // check if it is a wprm recipe
-  else if ($('.wprm-recipe').length > 0) {
+
+  else if ($('.wprm-recipe').length > 0 || $( "[class*='wprm-']" ).length > 0) {
       if (!this.recipe.name) {
           this.recipe.name = $(".wprm-recipe-name").text();
       }
