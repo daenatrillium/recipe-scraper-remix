@@ -247,7 +247,7 @@ else if ($('.ERSIngredients').length > 0) {
     this.recipe.instructions = [] 
   }
 
-  if(ingredients.length===0) {
+  if(ingredients.length ===0) {
     $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
         ingredients.push($(el).text());
     });
@@ -274,6 +274,12 @@ else if ($('.ERSIngredients').length > 0) {
                 } catch (error) {
                     console.log("NOT a JSON string!!")
                 }
+                finally {
+                    if (ingredients.length === 0) {
+                        ingredients.push("No ingredients found")
+                        this.recipe.defaultFlag = true;
+                    }
+                }
             }
             // search for header that is ingredients
             // var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
@@ -281,11 +287,7 @@ else if ($('.ERSIngredients').length > 0) {
             // $(":header, :contains('ngredient')").nextAll().each((i, el) => {
             //     ingredients.push($(el).text());
             // });
-
-            if (ingredients.length === 0) {
-                ingredients.push("No ingredients found")
-                this.recipe.defaultFlag = true;
-            }
+        
         }
     }
 }
