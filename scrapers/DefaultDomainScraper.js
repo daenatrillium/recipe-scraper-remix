@@ -12,9 +12,9 @@ class DefaultDomainScraper extends BaseScraper {
 
     this.defaultSetImage($);
 
-    // New comment here
-    let cool = 0;
     let { ingredients, instructions, time } = this.recipe;
+
+    this.recipe.name = $("meta[property='og:title']").attr("content") ? $("meta[property='og:title']").attr("content") : "";
 
      if ($('.tasty-recipes').length > 0) {
             $(".tasty-recipes-ingredients")
@@ -23,30 +23,29 @@ class DefaultDomainScraper extends BaseScraper {
                 ingredients.push($(el).text());
             });
 
-      $(".tasty-recipes-instructions")
-      .find("li")
-      .each((i, el) => {
-        instructions.push($(el).text());
-      });
+            $(".tasty-recipes-instructions")
+            .find("li")
+            .each((i, el) => {
+                instructions.push($(el).text());
+            });
 
-      if (instructions.length == 0) {
-          $(".tasty-recipe-instructions")
-          .find("li")
-          .each((i, el) => {
-            instructions.push($(el).text());
-          });
-      }
+            if ( !instructions || instructions.length == 0) {
+                $(".tasty-recipe-instructions")
+                .find("li")
+                .each((i, el) => {
+                    instructions.push($(el).text());
+                });
+            }
 
-    this.recipe.name = $("meta[property='og:title']").attr("content");
-    time.prep = $(".tasty-recipes-prep-time").text();
-    time.cook = $(".tasty-recipes-cook-time").text();
-    time.total = $(".tasty-recipes-total-time").text();
+            time.prep = $(".tasty-recipes-prep-time").text();
+            time.cook = $(".tasty-recipes-cook-time").text();
+            time.total = $(".tasty-recipes-total-time").text();
 
-    $(".tasty-recipes-yield-scale").remove();
-    this.recipe.servings = $(".tasty-recipes-yield")
-      .text()
-      .trim();
-  }
+            $(".tasty-recipes-yield-scale").remove();
+            this.recipe.servings = $(".tasty-recipes-yield")
+            .text()
+            .trim();
+     }
 
   // check if it is a wprm recipe
 
@@ -225,18 +224,18 @@ else if ($('.ERSIngredients').length > 0) {
     this.recipe.instructions = [] 
   }
 
-  if(ingredients.length ===0) {
+  if(!ingredients || ingredients.length ===0) {
     $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
         ingredients.push($(el).text());
     });
   
 
-    if (ingredients.length === 0) {
+    if (!ingredients || ingredients.length === 0) {
         $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
             ingredients.push($(el).text());
         });
 
-        if (ingredients.length === 0) {
+        if (!ingredients || ingredients.length === 0) {
             console.log("HIT LD+JSON SCRAPER");
             const scriptText = $("script[type='application/ld+json']").html();
             if (scriptText) {
@@ -254,7 +253,7 @@ else if ($('.ERSIngredients').length > 0) {
                     console.log("NOT a JSON string!!")
                 }
                 finally {
-                    if (ingredients.length === 0) {
+                    if (!ingredients || ingredients.length === 0) {
                         ingredients.push("No ingredients found")
                         this.recipe.defaultFlag = true;
                     }
