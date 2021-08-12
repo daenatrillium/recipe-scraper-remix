@@ -12,7 +12,8 @@ class DefaultDomainScraper extends BaseScraper {
 
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $("meta[property='og:title']").attr("content");
+    var headName = $("meta[property='og:title']").attr("content");
+    if(headName) { this.recipe.name = headname; }
 
     // for(var i in obj){
     //     for(var j in obj[i].children){
@@ -38,14 +39,6 @@ class DefaultDomainScraper extends BaseScraper {
             .each((i, el) => {
                 ingredients.push($(el).text());
             });
-
-      if (ingredients.length == 0) {
-          $(".tasty-recipe-ingredients")
-          .find("li")
-          .each((i, el) => {
-            ingredients.push($(el).text());
-          });
-      }
 
       $(".tasty-recipes-instructions")
       .find("li")
@@ -202,7 +195,6 @@ else if ($('.ERSIngredients').length > 0) {
         this.recipe.name = $(".ERSName").text();
     }
 
-    if (ingredients.length === 0) { 
         $(".ERSIngredients").find(".ingredient")
         .each((i, el) => {
                 var text = 
@@ -213,7 +205,7 @@ else if ($('.ERSIngredients').length > 0) {
                     
                     ingredients.push(text);
             });
-        }
+        
 
     $(".ERSInstructions").find(".instruction")
     .each((i, el) => {
@@ -248,12 +240,13 @@ else if ($('.ERSIngredients').length > 0) {
   }
 
   if(ingredients.length ===0) {
-    $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+    $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
         ingredients.push($(el).text());
     });
+  
 
     if (ingredients.length === 0) {
-        $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+        $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
             ingredients.push($(el).text());
         });
 
