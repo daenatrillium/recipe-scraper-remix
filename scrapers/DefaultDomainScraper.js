@@ -11,28 +11,8 @@ class DefaultDomainScraper extends BaseScraper {
     console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
 
     this.defaultSetImage($);
-    let { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $("meta[property='og:title']").attr("content");
-    console.log("HERE IS HEADNAME LENGTH: ", headName.length, headName)
+    const { ingredients, instructions, time } = this.recipe;
 
-    // for(var i in obj){
-    //     for(var j in obj[i].children){
-    //         var data = obj[i].children[j].data;
-    //         if(data){
-    //             instructions.push(data);
-    //             const ingr = data.recipeIngredient;
-    //             ingredients.push("garlic");
-    //             ingr.forEach(e => {
-    //                 ingredients.push(e);
-    //             })
-    //         }
-    //     }
-    // }
-
-    // const scriptRaw = $("script[type='application/ld+json']").get()[0].children[0].data;
-
-
-     // check if it is a tasty recipes plug in, and follow structure if yes.
      if ($('.tasty-recipes').length > 0) {
             $(".tasty-recipes-ingredients")
             .find("li")
@@ -54,6 +34,7 @@ class DefaultDomainScraper extends BaseScraper {
           });
       }
 
+    this.recipe.name = $("meta[property='og:title']").attr("content");
     time.prep = $(".tasty-recipes-prep-time").text();
     time.cook = $(".tasty-recipes-cook-time").text();
     time.total = $(".tasty-recipes-total-time").text();
