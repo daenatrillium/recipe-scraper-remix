@@ -11,7 +11,7 @@ class DefaultDomainScraper extends BaseScraper {
     console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
 
     this.defaultSetImage($);
-    const { ingredients, instructions, time } = this.recipe;
+    let { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
     console.log("HERE IS HEADNAME LENGTH: ", headName.length, headName)
 
