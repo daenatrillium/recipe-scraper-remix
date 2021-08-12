@@ -1,6 +1,6 @@
 {
   "name": "recipe-scraper-remix",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A JS package for scraping recipes from the web.",
   "author": "Daena Ramiah <daena.ramiah@gmail.com>",
   "license": "MIT",
