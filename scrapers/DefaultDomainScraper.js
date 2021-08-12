@@ -11,7 +11,10 @@ class DefaultDomainScraper extends BaseScraper {
     console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
 
     this.defaultSetImage($);
-    const { ingredients, instructions, time } = this.recipe;
+
+    // New comment here
+    let cool = 0;
+    let { ingredients, instructions, time } = this.recipe;
 
      if ($('.tasty-recipes').length > 0) {
             $(".tasty-recipes-ingredients")
