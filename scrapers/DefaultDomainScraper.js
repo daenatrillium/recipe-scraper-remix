@@ -14,7 +14,9 @@ class DefaultDomainScraper extends BaseScraper {
     const { ingredients, instructions, time } = this.recipe;
     var headName = $("meta[property='og:title']").attr("content");
     console.log("HERE IS HEADNAME LENGTH: ", headName.length, headName)
-    if( headName) { this.recipe.name = headName; }``
+    if ( headName) { 
+        this.recipe.name = headName; 
+    }
 
     // for(var i in obj){
     //     for(var j in obj[i].children){
