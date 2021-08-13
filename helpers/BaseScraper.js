@@ -3,7 +3,7 @@
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const { validate } = require("jsonschema");
-
+const { ProxyCrawlAPI } = require('proxycrawl');
 const Recipe = require("./Recipe");
 const recipeSchema = require("./RecipeSchema.json");
 const ProxyCrawlAPI = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
