@@ -62,7 +62,7 @@ class BaseScraper {
       // const html = await res.text();
       api.get(this.url).then(response => {
         // Make sure the response is success
-        if (response.statusCode === 200 && response.originalStatus === 200) {
+        if (response.statusCode === 200) {
           const html = response.body;
           console.log("here is response body: ", html)
           const load = cheerio.load(html);
