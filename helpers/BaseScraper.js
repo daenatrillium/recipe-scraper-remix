@@ -74,6 +74,7 @@ class BaseScraper {
 
       const res = await api.get(this.url);
       const html = await res.body;
+      console.log("[HTML Res Body] ", html);
       const load = cheerio.load(html);
       return load;
  
