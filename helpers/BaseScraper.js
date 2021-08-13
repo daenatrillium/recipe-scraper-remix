@@ -6,6 +6,7 @@ const { validate } = require("jsonschema");
 
 const Recipe = require("./Recipe");
 const recipeSchema = require("./RecipeSchema.json");
+const ProxyCrawlAPI = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
 
 /**
  * Abstract Class which all scrapers inherit from
@@ -57,11 +58,20 @@ class BaseScraper {
    */
   async fetchDOMModel() {
     try {
-      const res = await fetch(this.url);
-      const html = await res.text();
-      const load = cheerio.load(html);
-      console.log("here is cheerio.load ", load);
-      return load;
+      // const res = await fetch(this.url);
+      // const html = await res.text();
+      ProxyCrawlAPI.get(this.url).then(response => {
+        // Make sure the response is success
+        if (response.statusCode === 200 && response.originalStatus === 200) {
+          const html = response.body;
+          const load = cheerio.load(html);
+          console.log("here is cheerio.load ", load);
+          return load;
+        } else {
+          console.log('Proxy Crawl get Failed: ', response.statusCode, response.originalStatus);
+        }
+      });
+ 
     } catch (err) {
       console.log("here is cheerio.load error ", err);
       this.cheerioCatchError();
