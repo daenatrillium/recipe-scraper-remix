@@ -6,7 +6,7 @@ const { validate } = require("jsonschema");
 const { ProxyCrawlAPI } = require('proxycrawl');
 const Recipe = require("./Recipe");
 const recipeSchema = require("./RecipeSchema.json");
-const ProxyCrawlAPI = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
+const api = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
 
 /**
  * Abstract Class which all scrapers inherit from
@@ -60,7 +60,7 @@ class BaseScraper {
     try {
       // const res = await fetch(this.url);
       // const html = await res.text();
-      ProxyCrawlAPI.get(this.url).then(response => {
+      api.get(this.url).then(response => {
         // Make sure the response is success
         if (response.statusCode === 200 && response.originalStatus === 200) {
           const html = response.body;
