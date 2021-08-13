@@ -275,7 +275,7 @@ else if ($('.ERSIngredients').length > 0) {
   console.log("Length of the Meta Title Property", $("meta[property='og:title']").length)
   console.log("Length of the Html Property", $("html").length)
   console.log("Length of the Body Property", $("body").length)
-  console.log("Length of the Body Property", $("body").html())
+  console.log("This is Body Data", $("body").html())
 
   console.log("here is resulting default domain scraper: ", this.recipe)
   }
