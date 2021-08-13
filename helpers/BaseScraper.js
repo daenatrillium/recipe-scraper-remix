@@ -64,6 +64,7 @@ class BaseScraper {
         // Make sure the response is success
         if (response.statusCode === 200 && response.originalStatus === 200) {
           const html = response.body;
+          console.log("here is response body: ", html)
           const load = cheerio.load(html);
           console.log("here is cheerio.load ", load);
           return load;
