@@ -57,23 +57,28 @@ class BaseScraper {
    * @returns {object} - Cheerio instance
    */
   async fetchDOMModel() {
-    try {
+    try { 
       // const res = await fetch(this.url);
       // const html = await res.text();
-      api.get(this.url).then(response => {
-        // Make sure the response is success
-        if (response.statusCode === 200) {
-          const html = response.body;
-          const load = cheerio.load(html);
-          console.log("here is cheerio.load ", load);
-          return load;
-        } else {
-          console.log('Proxy Crawl get Failed: ', response.statusCode, response.originalStatus);
-        }
-      });
+      //   const res = await api.get(this.url).then(response => {
+      //   // Make sure the response is success
+      //   if (response.statusCode === 200) {
+      //     const html = response.body;
+      //     const load = cheerio.load(html);
+      //     console.log("here is cheerio.load ", load);
+      //     return load;
+      //   } else {
+      //     console.log('Proxy Crawl get Failed: ', response.statusCode, response.originalStatus);
+      //   }
+      // });
+
+      const res = await api.get(this.url);
+      const html = await res.body;
+      const load = cheerio.load(html);
+      return load;
  
     } catch (err) {
-      console.log("here is cheerio.load error ", err);
+      console.log("here is error ", err);
       this.cheerioCatchError();
     }
   }
