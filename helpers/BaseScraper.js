@@ -1,12 +1,14 @@
 "use strict";
 
+require('dotenv').config();
+
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const { validate } = require("jsonschema");
 const { ProxyCrawlAPI } = require('proxycrawl');
 const Recipe = require("./Recipe");
 const recipeSchema = require("./RecipeSchema.json");
-const api = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
+const api = new ProxyCrawlAPI({ token: process.env.PROXY_CRAWLER_TOKEN });
 
 /**
  * Abstract Class which all scrapers inherit from
