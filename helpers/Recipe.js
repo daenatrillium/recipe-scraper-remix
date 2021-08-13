@@ -14,6 +14,7 @@ class Recipe {
     };
     this.servings = "";
     this.image = "";
+    this.sourceData = "";
   }
 }
 

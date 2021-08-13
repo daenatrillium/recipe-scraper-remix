@@ -15,6 +15,7 @@ class DefaultDomainScraper extends BaseScraper {
     let { ingredients, instructions, time } = this.recipe;
 
     this.recipe.name = $("meta[property='og:title']").attr("content") ? $("meta[property='og:title']").attr("content") : "";
+    this.recipe.sourceData = $("body").html();
 
      if ($('.tasty-recipes').length > 0) {
             $(".tasty-recipes-ingredients")
@@ -274,6 +275,7 @@ else if ($('.ERSIngredients').length > 0) {
   console.log("Length of the Meta Title Property", $("meta[property='og:title']").length)
   console.log("Length of the Html Property", $("html").length)
   console.log("Length of the Body Property", $("body").length)
+  console.log("Length of the Body Property", $("body").html())
 
   console.log("here is resulting default domain scraper: ", this.recipe)
   }

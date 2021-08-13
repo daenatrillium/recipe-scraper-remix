@@ -33,7 +33,7 @@ class BaseScraper {
   }
 
   defaultError(rec) {
-    throw new Error("No recipe found on page", rec);
+    throw new Error(rec);
   }
 
   cheerioCatchError() {
