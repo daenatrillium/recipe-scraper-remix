@@ -8,7 +8,9 @@ class DefaultDomainScraper extends BaseScraper {
   }
 
   scrape($) {
-    console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
+    console.log("Recipe is not included in our scraper domain set")
+    var parsedHTML = $.load('<html><head><script type="application/json" src="http://myscript.org/somescript.ks"></script></head></html>')
+    console.log( parsedHTML('script').get()[0].attribs['src'] ); 
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
     this.recipe.name = $("meta[property='og:title']").attr("content");
