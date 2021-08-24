@@ -8,61 +8,56 @@ class DefaultDomainScraper extends BaseScraper {
   }
 
   scrape($) {
-    console.log("Recipe is not included in our scraper domain set")
-    var parsedHTML = $.load('<html><head><script type="application/json" src="http://myscript.org/somescript.ks"></script></head></html>')
-    console.log( parsedHTML('script').get()[0].attribs['src'] ); 
+    console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
+
     this.defaultSetImage($);
-    const { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $("meta[property='og:title']").attr("content");
 
-     // check if it is a tasty recipes plug in, and follow structure if yes.
+    let { ingredients, instructions, time } = this.recipe;
+
+    this.recipe.name = $("meta[property='og:title']").attr("content") ? $("meta[property='og:title']").attr("content") : "";
+    this.recipe.sourceData = $("body").html();
+
      if ($('.tasty-recipes').length > 0) {
-      $(".tasty-recipes-ingredients")
-      .find("li")
-      .each((i, el) => {
-        ingredients.push($(el).text());
-      });
+            $(".tasty-recipes-ingredients")
+            .find("li")
+            .each((i, el) => {
+                ingredients.push($(el).text());
+            });
 
-      if (ingredients.length == 0) {
-          $(".tasty-recipe-ingredients")
-          .find("li")
-          .each((i, el) => {
-            ingredients.push($(el).text());
-          });
-      }
+            $(".tasty-recipes-instructions")
+            .find("li")
+            .each((i, el) => {
+                instructions.push($(el).text());
+            });
 
-      $(".tasty-recipes-instructions")
-      .find("li")
-      .each((i, el) => {
-        instructions.push($(el).text());
-      });
+            if ( !instructions || instructions.length == 0) {
+                $(".tasty-recipe-instructions")
+                .find("li")
+                .each((i, el) => {
+                    instructions.push($(el).text());
+                });
+            }
 
-      if (instructions.length == 0) {
-          $(".tasty-recipe-instructions")
-          .find("li")
-          .each((i, el) => {
-            instructions.push($(el).text());
-          });
-      }
+            time.prep = $(".tasty-recipes-prep-time").text();
+            time.cook = $(".tasty-recipes-cook-time").text();
+            time.total = $(".tasty-recipes-total-time").text();
 
-    time.prep = $(".tasty-recipes-prep-time").text();
-    time.cook = $(".tasty-recipes-cook-time").text();
-    time.total = $(".tasty-recipes-total-time").text();
+            $(".tasty-recipes-yield-scale").remove();
+            this.recipe.servings = $(".tasty-recipes-yield")
+            .text()
+            .trim();
+     }
 
-    $(".tasty-recipes-yield-scale").remove();
-    this.recipe.servings = $(".tasty-recipes-yield")
-      .text()
-      .trim();
-  }
+  // check if it is a wprm recipe
 
-  // chjeck if it is a wprm recipe
-  else if ($('.wprm-recipe').length > 0) {
-      if (!this.recipe.name) {
+  else if ($('.wprm-recipe').length > 0 || $( "[class*='wprm-']" ).length > 0 || $('.wprm-recipe-name').length > 0) {
+    console.log("HIT WPRM RECIPE SCRAPER");
+    if (!this.recipe.name) {
           this.recipe.name = $(".wprm-recipe-name").text();
       }
 
 
-      $(".wprm-recipe-ingredient-group").each((i, el) => {
+          $(".wprm-recipe-ingredient-group").each((i, el) => {
           $(el)
           .find(".wprm-recipe-ingredient")
           .each((i, el) => {
@@ -74,6 +69,7 @@ class DefaultDomainScraper extends BaseScraper {
               );
           });
       });
+
 
       $(".wprm-recipe-instruction-group").each((i, el) => {
           instructions.push(
@@ -135,18 +131,19 @@ class DefaultDomainScraper extends BaseScraper {
           this.recipe.name = $(".mv-create-title").text();
       }
 
-      $(".mv-create-ingredients").find("li")
-      .each((i, el) => {
-              var text = 
-              $(el)
-                  .text()
-                  .replace(/\s\s+/g, " ")
-                  .trim()
-              if (text && text.toLowerCase() !== "ingredients") {
-                  console.log("PUSHING THIS TEXT FOR INGREDIENTS: ", text)
-                  ingredients.push(text);
-              }
-          });
+          $(".mv-create-ingredients").find("li")
+            .each((i, el) => {
+                var text = 
+                $(el)
+                    .text()
+                    .replace(/\s\s+/g, " ")
+                    .trim()
+                if (text && text.toLowerCase() !== "ingredients") {
+                    console.log("PUSHING THIS TEXT FOR INGREDIENTS: ", text)
+                    ingredients.push(text);
+                }
+            });
+        
 
       $(".mv-create-instructions").find("li")
       .each((i, el) => {
@@ -184,16 +181,17 @@ else if ($('.ERSIngredients').length > 0) {
         this.recipe.name = $(".ERSName").text();
     }
 
-    $(".ERSIngredients").find(".ingredient")
-    .each((i, el) => {
-            var text = 
-            $(el)
-                .text()
-                .replace(/\s\s+/g, " ")
-                .trim()
-                
-                ingredients.push(text);
-        });
+        $(".ERSIngredients").find(".ingredient")
+        .each((i, el) => {
+                var text = 
+                $(el)
+                    .text()
+                    .replace(/\s\s+/g, " ")
+                    .trim()
+                    
+                    ingredients.push(text);
+            });
+        
 
     $(".ERSInstructions").find(".instruction")
     .each((i, el) => {
@@ -227,32 +225,57 @@ else if ($('.ERSIngredients').length > 0) {
     this.recipe.instructions = [] 
   }
 
-  if (ingredients.length === 0) {
-    $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+  if(!ingredients || ingredients.length ===0) {
+    $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
         ingredients.push($(el).text());
     });
+  
 
-    if (ingredients.length === 0) {
-        $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+    if (!ingredients || ingredients.length === 0) {
+        $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
             ingredients.push($(el).text());
         });
 
-        if (ingredients.length === 0) {
+        if (!ingredients || ingredients.length === 0) {
+            console.log("HIT LD+JSON SCRAPER");
+            const scriptText = $("script[type='application/ld+json']").html();
+            if (scriptText) {
+                try {
+                    const scriptData = JSON.parse(scriptText);
+                    if (scriptData) {
+                        const ingr = scriptData.recipeIngredient;
+                        if (ingr) {
+                            ingr.forEach(e => {
+                                ingredients.push(e);
+                            })
+                        }
+                    }
+                } catch (error) {
+                    console.log("NOT a JSON string!!")
+                }
+                finally {
+                    if (!ingredients || ingredients.length === 0) {
+                        ingredients.push("No ingredients found")
+                        this.recipe.defaultFlag = true;
+                    }
+                }
+            }
             // search for header that is ingredients
             // var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
             // console.log("DOM TYPE: ", domType)
             // $(":header, :contains('ngredient')").nextAll().each((i, el) => {
             //     ingredients.push($(el).text());
             // });
-
-            if (ingredients.length === 0) {
-                ingredients.push("No ingredients found")
-                this.recipe.defaultFlag = true;
-            }
+        
         }
     }
+}
 
-  }
+
+  console.log("Length of the Meta Title Property", $("meta[property='og:title']").length)
+  console.log("Length of the Html Property", $("html").length)
+  console.log("Length of the Body Property", $("body").length)
+  console.log("This is Body Data", $("body").html())
 
   console.log("here is resulting default domain scraper: ", this.recipe)
   }
