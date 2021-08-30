@@ -3,9 +3,10 @@
 const fetch = require("node-fetch");
 const cheerio = require("cheerio");
 const { validate } = require("jsonschema");
-
+const { ProxyCrawlAPI } = require('proxycrawl');
 const Recipe = require("./Recipe");
 const recipeSchema = require("./RecipeSchema.json");
+const api = new ProxyCrawlAPI({ token: 'JzJPU2LgIa2GRXeCi1O4sw' });
 
 /**
  * Abstract Class which all scrapers inherit from
@@ -56,13 +57,29 @@ class BaseScraper {
    * @returns {object} - Cheerio instance
    */
   async fetchDOMModel() {
-    try {
-      const res = await fetch(this.url);
-      const html = await res.text();
+    try { 
+      // const res = await fetch(this.url);
+      // const html = await res.text();
+      //   const res = await api.get(this.url).then(response => {
+      //   // Make sure the response is success
+      //   if (response.statusCode === 200) {
+      //     const html = response.body;
+      //     const load = cheerio.load(html);
+      //     console.log("here is cheerio.load ", load);
+      //     return load;
+      //   } else {
+      //     console.log('Proxy Crawl get Failed: ', response.statusCode, response.originalStatus);
+      //   }
+      // });
+
+      const res = await api.get(this.url);
+      const html = await res.body;
+      console.log("[HTML Res Body] ", html);
       const load = cheerio.load(html);
       return load;
+ 
     } catch (err) {
-      console.log("here is cheerio.load error ", err);
+      console.log("here is error ", err);
       this.cheerioCatchError();
     }
   }
@@ -97,8 +114,12 @@ class BaseScraper {
    * @returns {object} - an object representing the recipe
    */
   validateRecipe() {
-    let res = validate(this.recipe, recipeSchema);
-    if (!res.valid) {
+    // let res = validate(this.recipe, recipeSchema);
+    // if (!res.valid) {
+    //   this.defaultError(this.recipe);
+    // }
+
+    if (!this.recipe.name) {
       this.defaultError(this.recipe);
     }
     return this.recipe;

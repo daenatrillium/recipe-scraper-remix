@@ -1,8 +1,8 @@
 {
-  "name": "recipe-scraper",
-  "version": "2.0.0",
+  "name": "recipe-scraper-remix",
+  "version": "2.0.1",
   "description": "A JS package for scraping recipes from the web.",
-  "author": "Justin Adkins <jadkins1019@gmail.com>",
+  "author": "Daena Ramiah <daena.ramiah@gmail.com>",
   "license": "MIT",
   "keywords": [
     "recipes",
@@ -25,7 +25,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jadkins89/Recipe-Scraper.git"
+    "url": "git+https://github.com/daenatrillium/recipe-scraper-remix.git"
   },
   "bugs": {
     "url": "https://github.com/jadkins89/Recipe-Scraper/issues"
@@ -36,6 +36,7 @@
     "jsonschema": "^1.4.0",
     "node-fetch": "^2.6.1",
     "parse-domain": "^2.3.2",
+    "proxycrawl": "^2.4.0",
     "puppeteer": "^1.20.0"
   },
   "devDependencies": {
