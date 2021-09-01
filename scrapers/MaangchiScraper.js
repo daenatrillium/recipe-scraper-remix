@@ -13,7 +13,7 @@ class MaangchiScraper extends BaseScraper {
     this.recipe.name = $("meta[name='twitter:title']").attr("content");
 
     $("h4").each((i, el) => {
-      if ($(el).text() === "Ingredients" || $(el).text() === "Description") {
+      if ($(el).text().includes("Ingredients") || $(el).text() === "Description") {
         $(el).nextAll("ul").each((i, ul) => {
           $(ul).find("li").each((i, li) => {
             ingredients.push($(li).text());
