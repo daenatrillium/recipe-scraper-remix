@@ -88,9 +88,16 @@ class BaseScraper {
    * Handles the workflow for fetching a recipe
    * @returns {object} - an object representing the recipe
    */
-  async fetchRecipe() {
+  async fetchRecipe(scrapeFlag, jquery) {
     this.checkUrl();
-    const $ = await this.fetchDOMModel();
+    if (scrapeFlag) {
+      console.log("sourceData identified, using jquery object")
+      const $ = jquery
+    }
+    else {
+      console.log("no sourceData, must fetch Dom Model")
+      const $ = await this.fetchDOMModel();
+    }
     this.createRecipeObject();
     this.scrape($);
     return this.validateRecipe();

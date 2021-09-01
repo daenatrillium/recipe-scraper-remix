@@ -9,7 +9,6 @@ class DefaultDomainScraper extends BaseScraper {
 
   scrape($) {
     console.log("TRIGGERING DEFAULT DOMAIN SCRAPER!")
-
     this.defaultSetImage($);
 
     let { ingredients, instructions, time } = this.recipe;
