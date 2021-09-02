@@ -90,13 +90,14 @@ class BaseScraper {
    */
   async fetchRecipe(scrapeFlag, jquery) {
     this.checkUrl();
+    const $;
     if (scrapeFlag) {
       console.log("sourceData identified, using jquery object")
-      const $ = jquery
+      $ = jquery;
     }
     else {
       console.log("no sourceData, must fetch Dom Model")
-      const $ = await this.fetchDOMModel();
+      $ = await this.fetchDOMModel();
     }
     this.createRecipeObject();
     this.scrape($);
