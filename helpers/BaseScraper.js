@@ -90,7 +90,7 @@ class BaseScraper {
    */
   async fetchRecipe(scrapeFlag, jquery) {
     this.checkUrl();
-    const $;
+    var $;
     if (scrapeFlag) {
       console.log("sourceData identified, using jquery object")
       $ = jquery;
