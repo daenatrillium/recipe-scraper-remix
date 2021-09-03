@@ -252,13 +252,11 @@ else if ($('.ERSIngredients').length > 0) {
                 } catch (error) {
                     console.log("NOT a JSON string!!")
                 }
-                finally {
-                    if (!ingredients || ingredients.length === 0) {
-                        ingredients.push("No ingredients found")
-                        this.recipe.defaultFlag = true;
-                    }
-                }
             }
+                if (!ingredients || ingredients.length === 0) {
+                    ingredients.push("No ingredients found")
+                    this.recipe.defaultFlag = true;
+                }
             // search for header that is ingredients
             // var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
             // console.log("DOM TYPE: ", domType)
