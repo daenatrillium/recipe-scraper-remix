@@ -231,7 +231,7 @@ else if ($('.ERSIngredients').length > 0) {
   
 
     if (!ingredients || ingredients.length === 0) {
-        $( "[class*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
+        $( "[class*='ngredient']" ).not('div').not('span').not(":header").not("ul").each((i, el) => {
             ingredients.push($(el).text());
         });
 
