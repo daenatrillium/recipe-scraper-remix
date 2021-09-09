@@ -28,7 +28,7 @@ class TheSpruceEatsScraper extends BaseScraper {
     });
 
     if (ingredients.length === 0) {
-      $("li.simple-list__item js-checkbox-trigger ingredient text-passage").each((i, el) => {
+      $("li.simple-list__item.ingredient").each((i, el) => {
         ingredients.push($(el).text());
       });
     }
