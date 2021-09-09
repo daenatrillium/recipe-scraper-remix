@@ -27,6 +27,12 @@ class TheSpruceEatsScraper extends BaseScraper {
       ingredients.push($(el).text());
     });
 
+    if (ingredients.length === 0) {
+      $("li.simple-list__item js-checkbox-trigger ingredient text-passage").each((i, el) => {
+        ingredients.push($(el).text());
+      });
+    }
+
     $(".section--instructions")
       .find("li")
       .find("p.comp")
