@@ -226,13 +226,17 @@ else if ($('.ERSIngredients').length > 0) {
 
   if(!ingredients || ingredients.length ===0) {
     $( "[itemProp*='ngredient']" ).not('div').not('span').not(":header").each((i, el) => {
-        ingredients.push($(el).text());
+        if (!ingredients.includes($(el).text())) {
+            ingredients.push($(el).text());
+        }
     });
   
 
     if (!ingredients || ingredients.length === 0) {
         $( "[class*='ngredient']" ).not('div').not('span').not(":header").not("ul").each((i, el) => {
-            ingredients.push($(el).text());
+            if (!ingredients.includes($(el).text())) {
+                ingredients.push($(el).text());
+            }
         });
 
         if (!ingredients || ingredients.length === 0) {
@@ -250,7 +254,7 @@ else if ($('.ERSIngredients').length > 0) {
                         }
                     }
                 } catch (error) {
-                    console.log("NOT a JSON string!!")
+                    console.log("Tried LD+JSON and this is NOT a JSON string!!")
                 }
             }
                 if (!ingredients || ingredients.length === 0) {
