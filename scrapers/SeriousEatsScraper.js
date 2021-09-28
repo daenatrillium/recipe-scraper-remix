@@ -17,29 +17,39 @@ class SeriousEatsScraper extends BaseScraper {
   scrape($) {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $(".heading__title")
-      .text()
-      .replace(/\s\s+/g, "");
+    this.recipe.name = $(".heading__title").text().replace(/\s\s+/g, "");
 
     $(".ingredient").each((i, el) => {
       ingredients.push($(el).text());
     });
 
-    time.active = $("#active-time_1-0")
-      .children("meta-text__data").text()
-    
+    if (ingredients.length === 0) {
+      $("li.structured-ingredients__list-item").each((i, el) => {
+        ingredients.push($(el).text());
+      });
+    }
+
+    if (ingredients.length === 0) {
+      $("li.simple-list__item").each((i, el) => {
+        ingredients.push($(el).text());
+      });
+    }
+
+    time.active = $("#active-time_1-0").children("meta-text__data").text();
+
     time.total = $(".project-meta__total-time")
-      .children("#meta-text_1-0").children("meta-text__data").text()
+      .children("#meta-text_1-0")
+      .children("meta-text__data")
+      .text();
 
     this.recipe.servings = $(".project-meta__recipe-serving")
-      .children("#meta-text_6-0").children("meta-text__data").text()
-
+      .children("#meta-text_6-0")
+      .children("meta-text__data")
+      .text();
 
     let tagsSet = new Set();
     $("li[class='label label-category top-level']").each((i, el) => {
-      let text = $(el)
-        .find("a")
-        .text();
+      let text = $(el).find("a").text();
       if (text) {
         tagsSet.add(text);
       }
@@ -48,11 +58,7 @@ class SeriousEatsScraper extends BaseScraper {
     this.recipe.tags = Array.from(tagsSet);
 
     $(".recipe-procedure-text").each((i, el) => {
-      instructions.push(
-        $(el)
-          .text()
-          .replace(/\s\s+/g, "")
-      );
+      instructions.push($(el).text().replace(/\s\s+/g, ""));
     });
   }
 }

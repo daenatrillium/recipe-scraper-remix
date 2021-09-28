@@ -31,7 +31,6 @@ class TasteCookingScraper extends BaseScraper {
       .trim();
 
     $(".recipe-body-list-container").find("li").each((i, el) => {
-      console.log("HERE IS EL TEXT: ", $(el).text());
       instructions.push($(el).text().trim());
     })
 
