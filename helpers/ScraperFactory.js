@@ -18,7 +18,6 @@ const domains = {
   copykat: require("../scrapers/CopyKatScraper"),
   damndelicious: require("../scrapers/DamnDeliciousScraper"),
   eatingwell: require("../scrapers/EatingWellScraper"),
-  epicurious: require("../scrapers/EpicuriousScraper"),
   food: require("../scrapers/FoodScraper"),
   foodandwine: require("../scrapers/FoodAndWineScraper"),
   foodnetwork: require("../scrapers/FoodNetworkScraper"),
@@ -53,10 +52,10 @@ const domains = {
   vegrecipesofindia: require("../scrapers/VegRecipesOfIndiaScraper"),
   whatsgabycooking: require("../scrapers/WhatsGabyCookingScraper"),
   woolworths: require("../scrapers/WoolworthsScraper"),
-  yummly: require("../scrapers/YummlyScraper")
+  yummly: require("../scrapers/YummlyScraper"),
 };
 
-const defaultDomain = require("../scrapers/DefaultDomainScraper") 
+const defaultDomain = require("../scrapers/DefaultDomainScraper");
 
 /**
  * A Factory that supplies an instance of a scraper based on a given URL
@@ -69,7 +68,7 @@ class ScraperFactory {
       if (domains[domain] !== undefined) {
         return new domains[domain](url);
       } else {
-        return new defaultDomain(url); 
+        return new defaultDomain(url);
       }
     } else {
       throw new Error("Failed to parse domain");
