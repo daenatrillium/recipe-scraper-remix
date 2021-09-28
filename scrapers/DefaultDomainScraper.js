@@ -263,8 +263,24 @@ class DefaultDomainScraper extends BaseScraper {
                 console.log("Tried LD+JSON and this is NOT a JSON string!!");
               }
             }
+
             if (!ingredients || ingredients.length === 0) {
-              this.recipe.defaultFlag = true;
+              $("div[class*='ngredient']").each((i, el) => {
+                if ($(el).children.length) {
+                  $(el).children.each((i, ch) => {
+                    if (!ingredients.includes($(ch).text())) {
+                      ingredients.push($(ch).text());
+                    }
+                  });
+                } else {
+                  if (!ingredients.includes($(el).text())) {
+                    ingredients.push($(el).text());
+                  }
+                }
+              });
+              if (!ingredients || ingredients.length === 0) {
+                this.recipe.defaultFlag = true;
+              }
             }
             // search for header that is ingredients
             // var domType = $(":header, :contains('ngredient')").next().prop("nodeName");
