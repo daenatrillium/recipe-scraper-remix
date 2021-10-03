@@ -267,16 +267,14 @@ class DefaultDomainScraper extends BaseScraper {
             if (!ingredients || ingredients.length === 0) {
               $("div[class*='ngredient']").each((i, el) => {
                 if ($(el).children.length) {
-                  $(el).children.each((i, ch) => {
-                    if (!ingredients.includes($(ch).text())) {
-                      ingredients.push($(ch).text());
-                    }
-                  });
-                } else {
-                  if (!ingredients.includes($(el).text())) {
-                    ingredients.push($(el).text());
-                  }
-                }
+                  $(el)
+                    .children()
+                    .each((i, ch) => {
+                      if (!ingredients.includes($(ch).text())) {
+                        ingredients.push($(ch).text());
+                      }
+                    });
+                } 
               });
               if (!ingredients || ingredients.length === 0) {
                 this.recipe.defaultFlag = true;
