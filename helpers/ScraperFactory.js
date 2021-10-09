@@ -32,6 +32,7 @@ const domains = {
   myrecipes: require("../scrapers/MyRecipesScraper"),
   nigella: require("../scrapers/NigellaScraper"),
   nomnompaleo: require("../scrapers/NomNomPaleoScraper"),
+  nytimes: require("../scrapers/NYTimesScraper"),
   omnivorescookbook: require("../scrapers/OmnivoresCookbookScraper"),
   pinchofyum: require("../scrapers/PinchOfYumScraper"),
   recipetineats: require("../scrapers/RecipeTinEatsScraper"),
