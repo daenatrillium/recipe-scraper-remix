@@ -14,7 +14,7 @@ class NYTimesScraper extends BaseScraper {
   scrape($) {
     this.defaultSetImage($);
     const { ingredients, instructions, time } = this.recipe;
-    this.recipe.name = $("recipe-title").text();
+    this.recipe.name = $("meta[property='og:title']").attr("content");
 
     $(".recipe-ingredients")
       .find("li")
